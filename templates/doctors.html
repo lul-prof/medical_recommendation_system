@@ -1,0 +1,42 @@
+{% extends "admin.html" %}
+{% block title %}Doctor-Creation-Platform{% endblock %}
+
+    {% block p %}Doc Management System{% endblock %}
+    
+    {% block admin %}
+    <h1 style="text-align: center;">KNH Doctors Management Platform</h1>
+    <div class="form-select">
+    <fieldset>
+        <form action="/doctors" method="post">
+            <p style="text-align: center;">
+            <input type="text" name="name" placeholder="Full Names" required><br>
+            <input type="text" name="age" placeholder="Age" required><br>
+            <input type="text" name="username" placeholder="username" required><br>
+            <select name="specialty" required>
+                <option value="" disabled selected>Select Specialty</option>
+                {% for spec in specialty %}
+                    <option value="{{ spec.name }}">{{ spec.name }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="text" name="idno" placeholder="National ID No" required><br>          
+            <input type="email" name="email" placeholder="Email Address" required><br>
+            <input type="text" name="contact" placeholder="Telephone No" required><br>
+            <select name="day" id="day" required>
+                <option value="" disabled selected>Day Available</option>
+                <option value="monday">Monday</option>
+                <option value="tuesday">Tuesday</option>
+                <option value="wednesday">Wednesday</option>
+                <option value="thursday">Thursday</option>
+                <option value="friday">Friday</option>
+                <option value="saturday">Saturday</option>
+                <option value="sunday">Sunday</option>
+            </select><br><br>
+            From:<input type="time" name="from" id="from">
+            To:<input type="time" name="to" id="to"><br><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <button type="submit" style="margin: 20px;">Save</button> <input type="reset" value="Clear">
+            </p>
+        </form>
+    </fieldset>
+    </div>
+{% endblock %}

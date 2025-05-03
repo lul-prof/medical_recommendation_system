@@ -1,0 +1,94 @@
+    {% extends "index.html" %}
+    {% block title %}Contact Us{% endblock %}
+    {% block p %}Book Appointment{% endblock %}
+
+    {% block content %}
+    <div class="container4">
+        <div class="appointment">
+        <fieldset>
+            <form action="/appointment" method="post">
+                <p style="text-align: center;">
+                <input type="text" name="name" id="name" placeholder="Enter Your Full Names" required><br><br>
+                <input type="tel" name="contact" id="contact" placeholder="Enter Your Phone Number" required><br><br>
+                <input type="email" name="email" id="email" placeholder="Enter Your Email" required><br><br>
+                <select name="specialty" >
+                    
+                    <option value="" disabled selected>Select Specialist</option>
+                        <option value="Allergy and immunology">Allergy and immunology</option>
+                        <option value="Anesthesology">Anesthesology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Diagnostic Radiology">Diagnostic Radiology</option>
+                        <option value="Emergency">Emergency </option>
+                        <option value="Family Medicine">Family Medicine</option>
+                        <option value="Diagnostic Radiology">Diagnostic Radiology</option>
+                        <option value="Allergy and immunology">Allergy and immunology</option>
+                        <option value="Gynecology">Gynecology</option>
+                        <option value="Psychiatry">Psychiatry</option>
+                        <option value="Surgery">Surgery</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Medical genetics">Medical genetics</option>
+                        <option value="Nuclear Medicine">Nuclear Medicine</option>
+                        <option value="Emergency Medicine">Emergency Medicine</option>
+                </select><br><br>
+
+                <select name="day" required>
+                    <option value="" disabled selected>Select Time</option>
+                        <option value="8AM">8AM</option>
+                        <option value="9AM">9AM</option>
+                        <option value="10AM">10AM</option>
+                        <option value="11AM">11AM</option>
+                        <option value="12PM">12PM</option>
+                        <option value="2PM">2PM</option>
+                        <option value="3PM">3PM</option>
+                        <option value="4PM">4PM</option>
+                        <option value="5PM">5PM</option>
+                </select><br>
+                <p>
+                    <input type="submit" value="BOOK">
+                </p>
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="appt-btn" style="justify-self: center; position: absolute; top: 70%; left: 50%; right: 50%;">
+        <p>
+            <button style="background-color: green; padding: 10px; border-radius: 10px; border: 2px solid white; cursor: pointer; width: 180px;" onclick="showAppt()">
+                <a href="patient_appointment" style="color: black; text-decoration: none; font-weight: bold;">Pending Appointments</a>
+            </button>
+        </p>
+    </div>
+
+    <div class="show-apt" id="show-apt" style="justify-self: center; position: absolute; top: 80%; left: 50%; right: 50%; display:none;">
+        {% if appointment %}
+        <table>
+            <tr>
+                <th>PATIENT ID</th>
+                <th>PATIENT NAME</th>
+                <th>DAY</th>
+                <th>TIME</th>
+            </tr>
+            {% for appt in appointment %}
+            <tr>
+                <td>{{ appt.id }}</td>
+                <td>{{ appt.patient }}</td>
+                <td>{{ appt.day }}</td>
+                <td>{{ appt.time }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p style="text-align: center; font-size: 30px; font-family:cursive; background-color: skyblue;padding: 20px; border-radius: 10px; border: 2px solid black;">No Appointments Booked {{ username }}!!!</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<script>
+    function showAppt(){
+        document.getElementById("show-apt").style.display = "flex";
+
+    }
+</script>
+
+
+{% endblock %}

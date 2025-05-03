@@ -1,0 +1,995 @@
+    {% extends "index.html" %}
+    {% block title %}Doc-Assistant{% endblock %}
+{% block p %} Multiple Disease Prediction System{% endblock %}
+{% block content %}
+<style>
+    /*Diabetes CSS*/
+    hr
+    {
+        height: 10px;
+        border: 3px solid black;
+    }
+    marquee
+    {
+        font-size: 30px;
+    }
+    .form-sel
+    {
+        margin-top: 30px;
+        padding: 20px;
+        justify-self: center;
+    }
+    .form-sel fieldset
+    {
+        width:500px;
+        cursor: pointer;
+        padding: 20px;
+        border-radius: 20px;
+        border: 3px solid black;
+    }
+    .form-sel form p
+    {
+        font-weight: bold;
+        text-align: center;
+    
+    }
+    .form-sel input[type="text"]
+    {
+        text-align: center;
+    }
+    .form-sel input[name="name"]
+    {
+        width: 170px;
+        border-top: 0;
+        outline: none;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="name"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+
+    .form-sel input[name="pregnancy"]
+    {
+        width: 170px;
+        border-top: 0;
+        outline: none;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="pregnancy"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="gluc"]
+    {
+        width: 170px;
+        border-top: 0;
+        outline: none;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="gluc"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="bp"]
+    {
+        width: 170px;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        outline: none;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="bp"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="skt"]
+    {
+        width: 170px;
+        border-top: 0;
+        outline: none;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="skt"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="insulin"]
+    {
+        width: 170px;
+        border-top: 0;
+        outline: none;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="insulin"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="bmi"]
+    {
+        width: 170px;
+        border-top: 0;
+        border-left: 0;
+        outline: none;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="bmi"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="pedigree"]
+    {
+        width: 176px;
+        outline: none;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="pedigree"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[name="age"]
+    {
+        width: 170px;
+        border-top: 0;
+        border-left: 0;
+        outline: none;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: hidden;
+    }
+    .form-sel input[name="age"]::placeholder
+    {
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+    }
+    .form-sel input[type="submit"]
+    {
+        margin-top: 30px;
+        width: 100px;
+        margin-left: 200px;
+        padding: 15px;
+        cursor: pointer;
+        border: 3px solid green;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+    }
+    .form-sel input[type="submit"]:hover
+    {
+        border: 3px solid red;
+    }
+
+    .results button
+    {
+        border-radius: 20px;
+        background-color: green;
+        width: 100px;
+        padding: 10px;
+        border: 2px solid #000;
+        font-weight: bolder;
+        color: white;
+        cursor: pointer;
+        margin: 20px;
+    }
+    .results
+    {
+       position: relative;
+       top: 0%;
+       left: 0%;
+    }
+    .popup1{
+        width: 300px;
+        background: white;
+        border-radius: 6px;
+        position:absolute;
+        top: 60%;
+        left:50%;
+        padding:30px;
+        margin: 10px;
+        border: 2px solid black;
+        visibility: hidden;
+        transition: transform 0.4s, top 0.4s; 
+    }
+    .open-popup1{
+        visibility: visible;
+    }
+    .popup1 button{
+        width: 60px;
+        padding: 10px;
+        border:2px solid #000;
+        margin-top: 10px;
+        border-radius: 20px;
+       background-color: green;
+       margin-left: 50px;
+    }
+    /*Heart CSS*/
+    .form-selc
+        {
+            margin-top: 10px;
+            justify-self: center;
+        }
+        .form-selc fieldset
+        {
+            width:500px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            border: 3px solid black;
+        }
+        .form-selc form p
+        {
+            font-weight: bold;
+            text-align: center;
+        }
+        .form-selc input[type="text"]
+        {
+            text-align: center;
+        }
+
+        .form-selc input[name="name"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: none;
+            outline: none;
+        }
+        .form-selc input[name="name"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+
+        .form-selc input[name="age"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="age"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="sex"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="sex"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="cp"]
+        {
+            width: 200px;
+            text-align: center;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="cp"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="rbp"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="rbp"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="chol"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="chol"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="fbs"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="fbs"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="rer"]
+        {
+            width: 230px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="rer"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="mhr"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="mhr"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+    
+        .form-selc input[name="eia"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="eia"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="st"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="st"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="slope"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="slope"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="vessels"]
+        {
+            width: 250px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="defects"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+        .form-selc input[name="defects"]
+        {
+            width: 250px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: none;
+        }
+        .form-selc input[name="vessels"]::placeholder
+        {
+            text-align: center;
+            font-weight: bolder;
+            color: #000;
+        }
+
+
+        .form-selc input[type="submit"]
+        {
+            margin-left: 200px;
+            width: 100px;
+            border: 3px solid green;
+            background-color: #000;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 30px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .form-selc input[type="submit"]:hover
+        {
+            border: 3px solid red;
+        }
+
+        .results2 button
+        {
+            border-radius: 20px;
+            background-color: green;
+            width: 100px;
+            padding: 10px;
+            border: 2px solid #000;
+            font-weight: bolder;
+            color: white;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .results2
+        {
+            position: absolute;
+            top: 85%;
+            left: 55%;
+        }
+
+        .popup2{
+            width: 300px;
+            background: white;
+            border-radius: 6px;
+            position: absolute;
+            top: 60%;
+            left:60%;
+            transform:translate(-150%, 70%);
+            padding:30px;
+            margin: 10px;
+            border: 2px solid black;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s; 
+        }
+        .open-popup2{
+            visibility: visible;
+        }
+        .popup2 button{
+            width: 60px;
+            padding: 10px;
+            border:2px solid #000;
+            margin-top: 10px;
+            border-radius: 20px;
+           background-color: green;
+           margin-left: 50px;
+        }      
+        .form-selc select
+        {
+            width: 230px;
+            font-size: 15px;
+            text-align: center;
+            background: transparent;
+            border: 2px solid black;
+            border-radius: 10px;
+            outline: none;
+        }
+
+
+        /*Kidney CSS*/
+        .form-selct
+        {
+            margin-top: 10px;
+            justify-self: center;
+        }
+        .form-selct fieldset
+        {
+            cursor: pointer;
+            border-radius: 20px;
+            padding: 5px;
+            border: 3px solid black;
+        }
+        .form-selct form p
+        {
+            text-align: center;
+            font-weight: bold;
+        }
+        .form-selct input[type="text"]
+        {
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            width: 185px;
+            text-align: center;
+            outline: none;
+            background: transparent;
+        }
+        .form-selct input[type="text"]::placeholder
+        {
+            font-weight: bolder;
+            text-align: center;
+            color: #000;
+        }
+
+        .form-selct input[name="name"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+
+        .form-selct input[name="age"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="blood_pressure"]
+        {
+            width: 170px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="specific_gravity"]
+        {
+            width: 170px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="albumin"]
+        {
+            width: 170px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="blood_glucose"]
+        {
+            width: 180px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="sugar"]
+        {
+            width: 180px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="blood_urea"]
+        {
+            width: 180px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="mhr"]
+        {
+            width: 150px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+    
+        .form-selct input[name="eia"]
+        {
+            width: 150px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="st"]
+        {
+            width: 130px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="slope"]
+        {
+            width: 150px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="coronary_artery_disease"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="vessels"]
+        {
+            width: 120px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+        .form-selct input[name="defects"]
+        {
+            width: 200px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            border-bottom: 2px solid black;
+            background: transparent;
+            outline: hidden;
+        }
+
+        .form-selct input[type="submit"]
+        {
+            width: 100px;
+            cursor: pointer;
+            background-color: #000;
+            color: white;
+            border: 3px solid green;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .form-selct input[type="submit"]:hover
+        {
+            border: 3px solid red;
+        }
+
+        .results3 button
+        {
+            border-radius: 20px;
+            background-color: green;
+            width: 100px;
+            padding: 10px;
+            border: 2px solid #000;
+            font-weight: bolder;
+            color: white;
+            cursor: pointer;
+            margin: 20px;
+        }
+        .results3
+        {
+            position: absolute;
+            top:100%;
+            left: 50%;
+        }
+        .popup3{
+            width: 300px;
+            background: white;
+            border-radius: 6px;
+            position: absolute;
+            top: 65%;
+            left:35%;
+            padding:30px;
+            margin: 10px;
+            border: 2px solid black;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s; 
+        }
+        .open-popup3{
+            visibility: visible;
+        }
+        .popup3 button{
+            width: 60px;
+            padding: 10px;
+            border:2px solid #000;
+            margin-top: 10px;
+            border-radius: 20px;
+           background-color: green;
+           margin-left: 50px;
+        }
+        .results3 .records button 
+        {
+          border-radius: 10px;
+          padding: 5px;
+          width: 100px;
+          cursor: pointer;
+          background-color: #000;
+          color: white;
+          border: 3px solid green;
+        }
+   
+        .form-selct select
+        {
+            width: 80px;
+            text-align: center;
+            background: transparent;
+            font-weight: bolder;
+            border: 3px solid black;
+            border-radius: 10px;
+            outline: none;
+        }
+        .form-selct select[name=anaemia]
+        {
+            width: 300px;
+        }
+        .kid-res{
+            justify-self: center;
+        }
+
+        .kid-res button:hover
+        {
+            border: 2px solid red;
+        }
+            /* Self Diagn CSS*/
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .print-btn {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+         /*End of Self Diagn CSS*/
+
+         /*PopUp 4*/
+         .popup4{
+            width: 300px;
+            background: white;
+            border-radius: 6px;
+            position: absolute;
+            top: 46%;
+            left:30%;
+            padding:30px;
+            margin: 10px;
+            border: 2px solid black;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s; 
+        }
+        .open-popup4{
+            visibility: visible;
+        }
+        .popup4 button{
+            width: 60px;
+            padding: 10px;
+            border:2px solid #000;
+            margin-top: 10px;
+            border-radius: 20px;
+           background-color: green;
+           margin-left: 50px;
+        }
+
+        /*PopUp 5*/
+        .popup5{
+            width: 300px;
+            background: white;
+            border-radius: 6px;
+            position: absolute;
+            top: 40%;
+            left:30%;
+            padding:30px;
+            margin: 10px;
+            border: 2px solid black;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s; 
+        }
+        .open-popup5{
+            visibility: visible;
+        }
+        .popup5 button{
+            width: 60px;
+            padding: 10px;
+            border:2px solid #000;
+            margin-top: 10px;
+            border-radius: 20px;
+           background-color: green;
+           margin-left: 50px;
+        }
+
+        /*PopUp 6*/
+        .popup6{
+            width: 300px;
+            background: white;
+            border-radius: 6px;
+            position: absolute;
+            top:65%;
+            left:25%;
+            padding:30px;
+            margin: 10px;
+            border: 2px solid black;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s; 
+        }
+        .open-popup6{
+            visibility: visible;
+        }
+        .popup6 button{
+            width: 60px;
+            padding: 10px;
+            border:2px solid #000;
+            margin-top: 10px;
+            border-radius: 20px;
+           background-color: green;
+           margin-left: 50px;
+        }
+
+    </style>
+<div class="container3">
+    
+    <div class="selection" style="display: flex; gap: 5rem; justify-self: center; padding: 10px;">
+        <div class="buttons2" style="margin-top: 200px;">
+            <p style="font-size: 19px; text-align: center; padding: 10px;">Disease Selection</p>
+            <button class="btn1"><a href="/diabetes">Diabetes Prediction</a></button><br><br>
+            <button class="btn2"><a href="/heart">Heart Disease Prediction</a></button><br><br>
+            <button class="btn3"><a href="/kidney">Kidney Disease Prediction</a></button>
+            <p style="font-size: 25px; text-align: center; padding: 10px;">Actions</p>
+            <button class="btn4"><a href="/self_diag_records">Self Diagnosis Records</a></button><br><br>
+            <button class="btn5"><a href="/doc_appointment">Appointments</a></button><br><br>
+
+            {% if 'username' not in session %}
+            <p style="text-align: center; font-size: 12px;">Kindly Login</p>
+            {% else %}
+                <p style="text-align: center;">
+                    <button style="background-color: green; padding: 10px; border: 2px solid black; border-radius: 10px;">
+                        <a href="/logout" style="text-decoration: none; color: white;">Logout</a>
+                    </button>
+                </p>
+            {% endif %}
+        </div>
+        <div class="diseases">
+            {% block section %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

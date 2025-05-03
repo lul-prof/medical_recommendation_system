@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body>
+    {% if record %}
+<div class="update-form" style="justify-self: center; margin-top: 100px;" >
+    <fieldset style="border: 2px solid black; border-radius: 20px; width: 500px;">
+        <form action="" method="post">
+            <p  style="text-align: center;">
+                <input type="text" name="name" value="{{ record.name }}" required style="width: 300px; text-align: center;">
+            </p>
+            <p  style="text-align: center;">
+                <input type="text" name="email" value="{{ record.email }}" required style="width: 300px; text-align: center;">
+            </p>
+            <p  style="text-align: center;">
+                <input type="text" name="diagnosis" value="{{ record.diagnosis }}" required style="width: 300px; text-align: center;">
+            </p>
+            <p  style="text-align: center;">
+                <input type="text" name="description" value="{{ record.description }}" required >
+            </p>
+            <p style="text-align: center;">
+                <input type="submit" value="Update">
+            </p>
+        </form>
+    </fieldset>
+</div>
+    {% endif %}
+</body>
+</html>

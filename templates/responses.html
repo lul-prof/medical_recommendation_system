@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block title %}FAQS-Response{% endblock %}
+
+{% block content %}
+
+ {% if responses %}
+ <div class="view-res" style="margin: 30px; border: 2px solid black; border-radius: 10px;">
+
+    {% for res in responses %}
+    <h1 style="text-align: center;">Response {{ res.id }}</h1>
+    <p style="text-align: center;"><b>Name:-</b>{{ res.user }}</p><br>
+    <p style="text-align: center;"><b>Question:-</b>{{ res.question }}</p><br>
+    <p style="text-align: center;"><b>Response:-</b>{{ res.response }}</p><br>
+    <hr style="border: 1px; height: 3px;">
+    {% endfor %}
+    <p style="text-align: center; padding: 10px;">
+        <button style="background-color: green; padding: 10px; border-radius: 10px; border: 3px solid black;">
+            <a href="/help" style="text-decoration: none; color: white;">Back</a>
+        </button>
+    </p>
+
+</div>
+ {% endif %}
+
+{% endblock %}

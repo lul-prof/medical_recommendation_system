@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin-Dashboard{% endblock %}</title>
+    <style>
+        body
+        {
+         background-image: url("{{ url_for('static', filename='login2.jpg') }}");
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         height: 130vh;
+         margin: 0;
+         width:100%;
+         min-height: 100vh;
+         justify-content: center;
+         align-items: center;
+         background-color: #ede6d6;
+      }
+        .login-cont
+        {
+            background-image: url("{{ url_for('static', filename='login2.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+        }
+        .login
+        {
+            justify-self: center;
+            width: 450px;
+            padding: 20px;
+            margin: 20px;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            right: 50%;
+        }
+
+       .login img
+       {
+        width: 23%;
+        border-radius: 50px;
+        padding: 5px;
+        background-color: white;
+        border: 2px solid black;
+        transform: translate(145%, -60%);
+       }
+       .login fieldset{
+        border: 3px solid black;
+        border-radius: 10px;
+       
+    
+       }
+       .login form
+       {
+        
+        justify-items: center;
+      
+       }
+       .login input[type=text]{
+        width: 300px;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: none;
+        color:black;
+        font-size: 15px;
+        font-weight: bold;
+       }
+       .login input[type=email]{
+        width: 300px;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: none;
+        color: black;
+        font-size: 15px;
+        font-weight: bold;
+       }
+       .login input[type=password]{
+        width: 300px;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 2px solid black;
+        background: transparent;
+        outline: none;
+        color: black;
+        font-size: 15px;
+        font-weight: bold;
+       }
+       .login input[type=submit]{
+        width: 100px;
+        padding: 10px;
+        border-radius: 20px;
+        border: 2px solid white;
+        background-color: green;
+        cursor: pointer;
+        color: white;
+        font-size: 15px;
+        font-weight: bolder;
+       }
+       .login input[type=submit]:hover
+       {
+        border: 2px solid black;
+        background-color: red;
+        color: black;
+        transform: rotate(-360deg);
+        transition-duration:0.5s;
+        transition-delay: 0s;
+       }
+      
+       .login a{
+        text-decoration: none;
+        color: white;
+       }
+       .login a:hover{
+        color: black;
+       }
+       .login input[type=text]::placeholder{
+        color: #000;
+       }
+       .login input[type=email]::placeholder{
+        color: #000;
+        }
+       .login input[type=password]::placeholder{
+        color: #000;
+        }
+        .login input[type=submit]
+        {
+            margin-left: -12px;
+        }
+        .flash-container {
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            width: 250px;
+            position: absolute;
+            top:1%;
+            left: 50%;
+            right: 50%;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .flash-container button {
+            background: white;
+            border: none;
+            margin-left: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .print-btn {
+            margin: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        /*Add Doc CSS */
+        .form-select
+        {
+            margin-top: 20px;
+        }
+        .form-select fieldset
+        {
+            border: 2px solid black;
+            border-radius: 10px;
+            justify-content: center;
+            justify-self: center;
+            width: 500px;
+        }
+        .form-select input[type=text]
+        {
+            background: transparent;
+            outline: none;
+            border: 0;
+            border-bottom: 2px solid #000;
+            width: 300px;
+            text-align: center;
+            color: #000;
+            font-family: cursive;
+        }
+        .form-select input[type=text]::placeholder
+        {
+            color: #000;
+            font-weight: bolder;
+        }
+        .form-select input[type=password]
+        {
+            background: transparent;
+            outline: none;
+            border: 0;
+            border-bottom: 2px solid #000;
+            width: 300px;
+            text-align: center;
+            color: #000;
+            font-family: cursive;
+        }
+        .form-select input[type=password]::placeholder
+        {
+            color: #000;
+            font-weight: bolder;
+        }
+        .form-select select
+        {
+            background: transparent;
+            outline: none;
+            border: 0;
+            border-bottom: 2px solid #000;
+            width: 300px;
+            text-align: center;
+            color: #000;
+            font-family: cursive;
+            font-weight: bolder;
+        }
+        .form-select input[type=email]
+        {
+            background: transparent;
+            outline: none;
+            border: 0;
+            border-bottom: 2px solid #000;
+            width: 300px;
+            text-align: center;
+            color: #000;
+            font-family: cursive;
+        }
+        .form-select input[type=email]::placeholder
+        {
+            color: #000;
+            font-weight: bolder;
+        }
+        .form-select input[type=reset]
+        {
+            width: 100px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid green;
+            background-color: red;
+            color: white;
+            font-weight: bolder;
+            font-family: cursive;
+        }
+        .form-select input[type=reset]:hover
+        {
+            border: 2px solid red;
+            background-color: green;
+            color: #000;
+        }
+        .form-select button
+        {
+            width: 100px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid red;
+            background-color: green;
+            color: black;
+            font-weight: bolder;
+            font-family: cursive;
+        }
+        .form-select button:hover
+        {
+            border: 2px solid green;
+            background-color: rgb(7, 17, 7);
+            color: white;
+        }
+        /*end of add doc css*/
+    </style>
+</head>
+<script>
+    function closeFlash() {
+        document.getElementById("flash-message").style.display = "none";
+    }
+</script>
+<body>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+       <div id="flash-message" class="flash-container">
+           <p>{% for message in messages %}{{ message }}<br>{% endfor %}</p>
+           <button onclick="closeFlash()">OK</button>
+    {% endif %}
+   {% endwith %}
+    </div>
+
+    {% if 'a_username' in session %}
+    <div class="logout" style="justify-self:center; padding: 5px;">
+    <button style="background-color: red; padding: 10px; border: 2px solid black; border-radius: 10px;">
+        <a href="/a_logout" style="text-decoration: none; color: white;">Logout</a>
+    </button>
+    </div>
+    <hr style="border: 2px solid black; margin-bottom: 40px;">
+
+<div class="main-body" style="display: flex; gap: 4rem;">
+    <div class="views" style="display: flex; flex-direction: column; padding: 10px; box-shadow: 10px 40px 80px; border-radius: 10px;">
+        <h1 style="text-align: center;">Records</h1>
+        <button style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/a_self_diag_records" style="text-decoration: none; color: white;">Self Diagnosis Records</a></button><br>
+        <button style="background-color: skyblue; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/a_diabetesresults" style="text-decoration: none; color: black;">Diabetes Test Records</a></button><br>
+        <button style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/a_heartresults" style="text-decoration: none; color: white;">Heart Test Records</a></button><br>
+        <button class="records" style="background-color: skyblue; padding: 10px; border-radius: 10px; border: 2px solid black;"><a href="/a_kidneyresults" style="text-decoration: none; color: black;">Kidney Test Records</a></button><br>
+        <button class="btn5" style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/view_doctors" style="text-decoration: none; color: white;">Doctors</a></button><br>
+        <button class="btn5" style="background-color: skyblue; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/view_patients" style="text-decoration: none; color: black;">Patients</a></button><br>
+        <button class="btn5" style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/view_admins" style="text-decoration: none; color: white;">Admins</a></button>
+
+        <h1 style="text-align: center;">Actions</h1>
+        <button class="btn5" style="background-color: red; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/doctors" style="text-decoration: none; color: black; font-weight: bold;">Add a Doctor</a></button><br>
+        <button class="btn5" style="background-color: skyblue; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/add_admin" style="text-decoration: none; color: black;">Add Admin</a></button><br>
+        <button class="btn5" style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/response" style="text-decoration: none; color: black;">Questions</a></button><br>
+        <button class="btn5" style="background-color: red; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="/appointments" style="text-decoration: none; color: black; font-weight: bold;">Appointments</a></button><br>
+
+
+    </div>
+<div class="view-records">
+{% block admin %}
+
+
+{% endblock %}
+</div>
+</div>
+{% else %}
+
+<div class="login-cont">
+    <div class="login">
+    <h1 style="text-align: center; padding: 10px;">Admin Login</h1>
+    <fieldset style="border: 2px solid black;">
+        <form action="/admin_login" method="post">
+            <img src="{{url_for('static',filename='logo2.1.png')}}" alt="Logo"><br>
+            <p>
+            <input type="text" name="username" id="username" placeholder="Username" required><br><br>
+            <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+            </p>
+            <p>
+            <input type="submit" name="login" value="Login" id="Login"><br><br>
+            </p>
+        </form>
+    </fieldset>
+</div>
+</div>
+{% endif %} 
+</body>
+</html>

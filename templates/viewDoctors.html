@@ -1,0 +1,34 @@
+{% extends "admin.html" %}
+
+{% block title %}View-Doctors{% endblock %}
+
+{% block admin %}
+<div class="d-view" style="justify-self: center;">
+    <p style="text-align: center;">Registered Doctors</p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>Specialty</th>
+            <th>Contact</th>
+            <th>Day</th>
+            <th>Password</th>
+            
+        </tr>
+        {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.id }}</td>
+            <td>{{ doctor.full_names }}</td>
+            <td>{{ doctor.specialty }}</td>
+            <td>{{ doctor.contact }}</td>
+            <td>{{ doctor.day }}</td>
+            <td>{{ doctor.password }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<p style="text-align: center;">
+<button class="print-btn" onclick="window.print()">Print Records</button>
+</p>
+</div>
+
+{% endblock %}
